@@ -1,4 +1,5 @@
 import { CloseButton, Heading } from "@chakra-ui/react";
+import { Message } from "./Message";
 
 export const Chat = ({ chat, messages, close }) => {
   return (

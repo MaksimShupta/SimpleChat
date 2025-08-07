@@ -1,5 +1,7 @@
 import { ChatRoom } from "./components/ChatRoom";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { useState } from "react";
+import { Chat } from "./components/Chat";
 
 function App() {
   const [connection, setConnection] = useState(null);

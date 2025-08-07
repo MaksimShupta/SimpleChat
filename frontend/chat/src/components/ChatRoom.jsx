@@ -37,18 +37,3 @@ export const ChatRoom = ({ join }) => {
     </form>
   );
 };
-/*export const ChatRoom = () => {
-  return (
-    <form className="max-w-sm w-full bg-white p-8 rounded shadow-lg">
-      <h1 className="text-2xl font-bold mb-4">Chat</h1>
-      <div className="mb-4">
-        <label className="block text-sm text-gray-700 mb-1">User name</label>
-        <input
-          name="userName"
-          placeholder="Enter your name"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
-      </div>
-    </form>
-  );
-};*/
