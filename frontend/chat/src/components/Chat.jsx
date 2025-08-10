@@ -1,7 +1,16 @@
-import { CloseButton, Heading } from "@chakra-ui/react";
+import { CloseButton, Button, Input, Heading } from "@chakra-ui/react";
 import { Message } from "./Message";
+import { sendMessage } from "@microsoft/signalr/dist/esm/Utils";
+import { useState } from "react";
 
 export const Chat = ({ chat, messages, close }) => {
+  const [message, setMessage] = useState("");
+
+  const onSendMessage = () => {
+    sendMessage(message);
+    setMessage("");
+  };
+
   return (
     <div className="w-1/2 bg-white p-8 rounded shadow-lg">
       <div className="flex flex-row justify-between mb-5">
@@ -12,6 +21,17 @@ export const Chat = ({ chat, messages, close }) => {
         {messages.map((messageInfo, index) => (
           <Message messageInfo={messageInfo} key={index} />
         ))}
+      </div>
+      <div className="flex gap-3">
+        <Input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Enter a message"
+        />
+        <Button colorScheme="green" onClick={onSendMessage}>
+          Send
+        </Button>
       </div>
     </div>
   );

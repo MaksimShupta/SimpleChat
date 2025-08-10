@@ -32,10 +32,22 @@ function App() {
     setChat(chatGroup);
     console.log(connection);
   };
+  const sendMessage = (message) => {
+    connection.invoke("sendMessage", message);
+  };
+  const closeChat = async () => {
+    await connection.stop();
+    setConnection(null);
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       {connection ? (
-        <Chat chat={chat} messages={messages} />
+        <Chat
+          chat={chat}
+          messages={messages}
+          sendMessage={sendMessage}
+          closeChat={closeChat}
+        />
       ) : (
         <ChatRoom join={join} />
       )}

@@ -28,7 +28,7 @@ public class ChatHub: Hub<IClient>
             .GetMessage("Administrator",$"{connection.user} has joined the chat");
     }
     /// <summary>
-    /// Sends a user message
+    /// Sends a user's message
     /// </summary>
     /// <param name="message">user message</param>
     public async Task SendMessage(string message)
@@ -41,6 +41,24 @@ public class ChatHub: Hub<IClient>
             await Clients.Group(connection.chatGroup)
                 .GetMessage(connection.user, message);
         }
+        
+    }
+
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        var connectionData = await _cache.GetAsync(Context.ConnectionId);
+        var connection = JsonSerializer.Deserialize<UserConnection>(connectionData);
+        if (connection is not null)
+        {
+            //Delete cache
+            await _cache.RemoveAsync(Context.ConnectionId);
+            //Delete from the group
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, connection.chatGroup);
+            await Clients.Group(connection.chatGroup)
+                .GetMessage("Administrator",$"{connection.user} has left the chat");
+        }
+        
+        await base.OnDisconnectedAsync(exception);
         
     }
 }
